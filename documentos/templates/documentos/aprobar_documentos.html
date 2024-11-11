@@ -1,0 +1,33 @@
+<!-- documentos/templates/documentos/aprobar_documentos.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Aprobar Documentos</title>
+</head>
+<body>
+    <h1>Aprobar Documentos</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Acción</th>
+            </tr>
+            {% for documento in documentos %}
+            <tr>
+                <td>{{ documento.nombre }}</td>
+                <td>{{ documento.categoria }}</td>
+                <td>
+                    <input type="radio" name="estado" value="aprobado" required> Aprobar
+                    <input type="radio" name="estado" value="rechazado"> Rechazar
+                    <input type="hidden" name="doc_id" value="{{ documento.id }}">
+                    <button type="submit">Actualizar</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>

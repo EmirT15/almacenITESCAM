@@ -1,0 +1,30 @@
+<!-- documentos/templates/documentos/inicio.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>Documentos Aprobados</h1>
+
+    <!-- Enlace a la página de subir documento -->
+    <p><a href="{% url 'subir_documento' %}">Subir un Documento</a></p>
+
+    <!-- Enlace al área de administración -->
+    {% if request.user.is_staff %}
+        <p><a href="{% url 'aprobar_documentos' %}">Área de Administración</a></p>
+    {% else %}
+        <p><a href="/admin/">Ingresar como Administrador</a></p>
+    {% endif %}
+
+    <ul>
+        {% for documento in documentos %}
+            <li>
+                {{ documento.nombre }} - {{ documento.categoria }}
+                <a href="{{ documento.archivo.url }}" download>Descargar</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
